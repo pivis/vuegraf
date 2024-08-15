@@ -264,7 +264,8 @@ try:
            url=url,
            token=token,
            org=org,
-           verify_ssl=sslVerify
+           verify_ssl=sslVerify,
+           timeout=45000,
         )
         write_api = influx2.write_api(write_options=influxdb_client.client.write_api.SYNCHRONOUS)
         query_api = influx2.query_api()
@@ -306,7 +307,7 @@ try:
     detailedSecondsEnabled = detailedDataEnabled and getConfigValue('detailedDataSecondsEnabled', True)
     detailedHoursEnabled = detailedDataEnabled and getConfigValue('detailedDataHoursEnabled', True)
     info('Settings -> updateIntervalSecs: {}, detailedDataEnabled: {}, detailedIntervalSecs: {}, detailedDataHoursEnabled: {}, detailedDataSecondsEnabled: {}'.format(intervalSecs, detailedDataEnabled, detailedIntervalSecs, detailedHoursEnabled, detailedSecondsEnabled))
-        
+
     lagSecs = getConfigValue('lagSecs', 5)
     accountTimeZoneName = getConfigValue('timezone', None)
     accountTimeZone = pytz.timezone(accountTimeZoneName) if accountTimeZoneName is not None and accountTimeZoneName.upper() != "TZ" else None
